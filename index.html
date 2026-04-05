@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 <html class="theme-dark" lang="en">
@@ -13,7 +12,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
     <link rel="icon" type="image/png" sizes="256x256" href="images/favicon-256.png">
     <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
-    
+
     <!-- Analytics -->
     <script defer src="https://cloud.umami.is/script.js" data-website-id="f4683502-2226-4c5e-be29-bc11055b9f6e"></script>
 
@@ -22,9 +21,9 @@
     <meta name="keywords" content="SlothOn, aim training, KovaaKs, Voltaic, FPS">
     <meta name="author" content="Brad">
 
-    <!-- Open Graph (Discord, Twitter, etc. link previews) -->
+    <!-- Open Graph -->
     <meta property="og:title" content="Brad | SlothOn">
-    <meta property="og:description" content="Aim trainer, and Novice KovaaK's enthusiast. 30-50/360cm.">
+    <meta property="og:description" content="Aim trainer, content creator, and KovaaK's enthusiast. 40/360cm.">
     <meta property="og:image" content="https://bradleywilliamson.github.io/links/images/favicon-256.png">
     <meta property="og:url" content="https://bradleywilliamson.github.io/links/">
     <meta property="og:type" content="website">
@@ -41,6 +40,28 @@
     <link rel="stylesheet" href="css/brands.css">
 
     <style>
+      /* Particle background canvas */
+      #particles-canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        pointer-events: none;
+      }
+
+      /* Cursor trail canvas */
+      #cursor-canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+        pointer-events: none;
+      }
+
       /* Custom subtitle styling */
       .subtitle {
         font-size: 0.85em;
@@ -49,7 +70,26 @@
         margin-bottom: 16px;
         letter-spacing: 0.5px;
       }
-      /* Custom EVXL button - teal accent */
+
+      /* Location tag */
+      .location {
+        font-size: 0.8em;
+        opacity: 0.5;
+        margin-top: -12px;
+        margin-bottom: 8px;
+        letter-spacing: 0.3px;
+      }
+
+      /* View counter */
+      .view-counter {
+        font-size: 0.75em;
+        opacity: 0.4;
+        margin-top: 4px;
+        margin-bottom: 16px;
+        letter-spacing: 0.3px;
+      }
+
+      /* Custom EVXL button */
       .button-evxl {
         background-color: #14b8a6;
         color: #fff;
@@ -57,10 +97,21 @@
       .button-evxl:hover {
         background-color: #0d9488;
       }
+
+      /* Override body background for particle visibility */
+      body {
+        background: #0e0e1a !important;
+      }
     </style>
   </head>
 
   <body>
+
+    <!-- Particle background -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Cursor trail -->
+    <canvas id="cursor-canvas"></canvas>
 
     <div class="container">
       <div class="column">
@@ -72,7 +123,9 @@
         </h1>
 
         <p><em>To aim fast you must master aiming slow.</em></p>
-        <p class="subtitle">30-50/360cm · 1600 DPI · 2560x1440</p>
+        <p class="subtitle">30-50/360cm &middot; 1600 DPI &middot; 2560x1440</p>
+        <p class="location">&#x1F4CD; Ontario, Canada</p>
+        <p class="view-counter" id="view-count"></p>
 
         <!-- Links -->
         <div class="button-stack" role="navigation">
@@ -92,6 +145,9 @@
           <!-- Instagram -->
           <a class="button button-instagram" href="https://instagram.com/yourrightshoe" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/instagram.svg" alt="Instagram Logo">Instagram</a>
 
+          <!-- Spotify -->
+          <a class="button button-spotify" href="https://open.spotify.com/user/slothon" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/spotify.svg" alt="Spotify Logo">Spotify</a>
+
           <!-- Steam -->
           <a class="button button-steam" href="https://steamcommunity.com/id/SlothOn/" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/steam.svg" alt="Steam Logo">Steam</a>
 
@@ -103,6 +159,172 @@
 
       </div>
     </div>
+
+    <script>
+      // ========== FLOATING PARTICLES BACKGROUND ==========
+      (function() {
+        var canvas = document.getElementById('particles-canvas');
+        var ctx = canvas.getContext('2d');
+        var particles = [];
+        var particleCount = 60;
+
+        function resize() {
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+        }
+        resize();
+        window.addEventListener('resize', resize);
+
+        for (var i = 0; i < particleCount; i++) {
+          particles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            r: Math.random() * 2.5 + 0.5,
+            dx: (Math.random() - 0.5) * 0.4,
+            dy: (Math.random() - 0.5) * 0.4,
+            alpha: Math.random() * 0.4 + 0.1
+          });
+        }
+
+        function drawParticles() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+          for (var i = 0; i < particles.length; i++) {
+            var p = particles[i];
+            p.x += p.dx;
+            p.y += p.dy;
+
+            if (p.x < 0) p.x = canvas.width;
+            if (p.x > canvas.width) p.x = 0;
+            if (p.y < 0) p.y = canvas.height;
+            if (p.y > canvas.height) p.y = 0;
+
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(20, 184, 166, ' + p.alpha + ')';
+            ctx.fill();
+          }
+
+          // Draw faint lines between nearby particles
+          for (var i = 0; i < particles.length; i++) {
+            for (var j = i + 1; j < particles.length; j++) {
+              var dx = particles[i].x - particles[j].x;
+              var dy = particles[i].y - particles[j].y;
+              var dist = Math.sqrt(dx * dx + dy * dy);
+              if (dist < 120) {
+                ctx.beginPath();
+                ctx.moveTo(particles[i].x, particles[i].y);
+                ctx.lineTo(particles[j].x, particles[j].y);
+                ctx.strokeStyle = 'rgba(20, 184, 166, ' + (0.06 * (1 - dist / 120)) + ')';
+                ctx.lineWidth = 0.5;
+                ctx.stroke();
+              }
+            }
+          }
+
+          requestAnimationFrame(drawParticles);
+        }
+        drawParticles();
+      })();
+
+      // ========== CROSSHAIR CURSOR TRAIL ==========
+      (function() {
+        var canvas = document.getElementById('cursor-canvas');
+        var ctx = canvas.getContext('2d');
+        var trail = [];
+        var maxTrail = 20;
+        var mouseX = 0, mouseY = 0;
+
+        function resize() {
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+        }
+        resize();
+        window.addEventListener('resize', resize);
+
+        document.addEventListener('mousemove', function(e) {
+          mouseX = e.clientX;
+          mouseY = e.clientY;
+          trail.push({ x: mouseX, y: mouseY, life: 1.0 });
+          if (trail.length > maxTrail) trail.shift();
+        });
+
+        function drawCrosshair(x, y, size, alpha) {
+          ctx.strokeStyle = 'rgba(20, 184, 166, ' + alpha + ')';
+          ctx.lineWidth = 1.5;
+          ctx.lineCap = 'round';
+
+          var gap = size * 0.35;
+          var len = size;
+
+          // Top
+          ctx.beginPath();
+          ctx.moveTo(x, y - len);
+          ctx.lineTo(x, y - gap);
+          ctx.stroke();
+          // Bottom
+          ctx.beginPath();
+          ctx.moveTo(x, y + gap);
+          ctx.lineTo(x, y + len);
+          ctx.stroke();
+          // Left
+          ctx.beginPath();
+          ctx.moveTo(x - len, y);
+          ctx.lineTo(x - gap, y);
+          ctx.stroke();
+          // Right
+          ctx.beginPath();
+          ctx.moveTo(x + gap, y);
+          ctx.lineTo(x + len, y);
+          ctx.stroke();
+
+          // Center dot
+          ctx.beginPath();
+          ctx.arc(x, y, 1.5, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(20, 184, 166, ' + alpha + ')';
+          ctx.fill();
+        }
+
+        function drawTrail() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+          for (var i = 0; i < trail.length; i++) {
+            trail[i].life -= 0.05;
+          }
+
+          trail = trail.filter(function(t) { return t.life > 0; });
+
+          for (var i = 0; i < trail.length; i++) {
+            var t = trail[i];
+            var alpha = t.life * 0.4;
+            var size = 6 + (1 - t.life) * 4;
+            drawCrosshair(t.x, t.y, size, alpha);
+          }
+
+          requestAnimationFrame(drawTrail);
+        }
+        drawTrail();
+      })();
+
+      // ========== VIEW COUNTER ==========
+      (function() {
+        var el = document.getElementById('view-count');
+        if (!el) return;
+
+        // Simple view counter using CountAPI (free, no signup)
+        var key = 'slothon-links-views';
+        fetch('https://api.countapi.xyz/hit/bradleywilliamson.github.io/' + key)
+          .then(function(r) { return r.json(); })
+          .then(function(data) {
+            if (data && data.value) {
+              el.textContent = '\uD83D\uDC41 ' + data.value.toLocaleString() + ' views';
+            }
+          })
+          .catch(function() {
+            // Silently fail - counter just won't show
+          });
+      })();
+    </script>
 
   </body>
 
