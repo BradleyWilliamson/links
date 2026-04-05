@@ -77,14 +77,6 @@
         letter-spacing: 0.3px;
       }
 
-      .view-counter {
-        font-size: 0.75em;
-        opacity: 0.4;
-        margin-top: 0px;
-        margin-bottom: 8px;
-        letter-spacing: 0.3px;
-      }
-
       .button-evxl {
         background-color: #14b8a6;
         color: #fff;
@@ -147,7 +139,6 @@
         <p><em>To aim fast you must master aiming slow.</em></p>
         <p class="subtitle">30-50/360cm &middot; 1600 DPI &middot; 2560x1440</p>
         <p class="location">&#x1F4CD; Ontario, Canada</p>
-        <p class="view-counter" id="view-count"></p>
 
         <div class="button-stack" role="navigation">
 
@@ -296,20 +287,6 @@
         drawTrail();
       })();
 
-      // ========== VIEW COUNTER ==========
-      (function() {
-        var el = document.getElementById('view-count');
-        if (!el) return;
-        var key = 'slothon-links-views';
-        fetch('https://api.countapi.xyz/hit/bradleywilliamson.github.io/' + key)
-          .then(function(r) { return r.json(); })
-          .then(function(data) {
-            if (data && data.value) {
-              el.textContent = '\uD83D\uDC41 ' + data.value.toLocaleString() + ' views';
-            }
-          })
-          .catch(function() {});
-      })();
     </script>
 
   </body>
