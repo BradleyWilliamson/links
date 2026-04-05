@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 <html class="theme-dark" lang="en">
@@ -17,13 +18,13 @@
     <script defer src="https://cloud.umami.is/script.js" data-website-id="f4683502-2226-4c5e-be29-bc11055b9f6e"></script>
 
     <!-- Meta -->
-    <meta name="description" content="Aim trainer, content creator, and KovaaK's enthusiast. 40/360cm.">
+    <meta name="description" content="Novice aim trainer and KovaaK's enthusiast. 30-50/360cm.">
     <meta name="keywords" content="SlothOn, aim training, KovaaKs, Voltaic, FPS">
     <meta name="author" content="Brad">
 
     <!-- Open Graph -->
     <meta property="og:title" content="Brad | SlothOn">
-    <meta property="og:description" content="Aim trainer, content creator, and KovaaK's enthusiast. 40/360cm.">
+    <meta property="og:description" content="Novice aim trainer and KovaaK's enthusiast. 30-50/360cm.">
     <meta property="og:image" content="https://bradleywilliamson.github.io/links/images/favicon-256.png">
     <meta property="og:url" content="https://bradleywilliamson.github.io/links/">
     <meta property="og:type" content="website">
@@ -31,7 +32,7 @@
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Brad | SlothOn">
-    <meta name="twitter:description" content="Aim trainer, content creator, and KovaaK's enthusiast. 40/360cm.">
+    <meta name="twitter:description" content="Novice aim trainer and KovaaK's enthusiast. 30-50/360cm.">
     <meta name="twitter:image" content="https://bradleywilliamson.github.io/links/images/favicon-256.png">
 
     <!-- Stylesheets -->
@@ -40,7 +41,6 @@
     <link rel="stylesheet" href="css/brands.css">
 
     <style>
-      /* Particle background canvas */
       #particles-canvas {
         position: fixed;
         top: 0;
@@ -51,7 +51,6 @@
         pointer-events: none;
       }
 
-      /* Cursor trail canvas */
       #cursor-canvas {
         position: fixed;
         top: 0;
@@ -62,34 +61,30 @@
         pointer-events: none;
       }
 
-      /* Custom subtitle styling */
       .subtitle {
         font-size: 0.85em;
         opacity: 0.6;
-        margin-top: -8px;
-        margin-bottom: 16px;
+        margin-top: -4px;
+        margin-bottom: 6px;
         letter-spacing: 0.5px;
       }
 
-      /* Location tag */
       .location {
         font-size: 0.8em;
         opacity: 0.5;
-        margin-top: -12px;
+        margin-top: 0px;
+        margin-bottom: 4px;
+        letter-spacing: 0.3px;
+      }
+
+      .view-counter {
+        font-size: 0.75em;
+        opacity: 0.4;
+        margin-top: 0px;
         margin-bottom: 8px;
         letter-spacing: 0.3px;
       }
 
-      /* View counter */
-      .view-counter {
-        font-size: 0.75em;
-        opacity: 0.4;
-        margin-top: 4px;
-        margin-bottom: 16px;
-        letter-spacing: 0.3px;
-      }
-
-      /* Custom EVXL button */
       .button-evxl {
         background-color: #14b8a6;
         color: #fff;
@@ -98,19 +93,59 @@
         background-color: #0d9488;
       }
 
-      /* Override body background for particle visibility */
       body {
         background: #0e0e1a !important;
+      }
+
+      /* Tighter spacing for the profile section */
+      .container {
+        padding-top: 20px !important;
+      }
+
+      h1 {
+        margin-bottom: 2px !important;
+      }
+
+      .column p {
+        margin-bottom: 4px;
+      }
+
+      .column p em {
+        font-size: 0.95em;
+      }
+
+      .avatar {
+        width: 96px !important;
+        height: 96px !important;
+        margin-bottom: 8px !important;
+      }
+
+      .button-stack {
+        margin-top: 4px !important;
+      }
+
+      /* Spotify embed */
+      .spotify-player {
+        width: 100%;
+        max-width: 400px;
+        margin: 16px auto 0;
+        border-radius: 12px;
+        overflow: hidden;
+      }
+
+      .spotify-player iframe {
+        display: block;
+      }
+
+      footer {
+        margin-top: 12px !important;
       }
     </style>
   </head>
 
   <body>
 
-    <!-- Particle background -->
     <canvas id="particles-canvas"></canvas>
-
-    <!-- Cursor trail -->
     <canvas id="cursor-canvas"></canvas>
 
     <div class="container">
@@ -127,7 +162,6 @@
         <p class="location">&#x1F4CD; Ontario, Canada</p>
         <p class="view-counter" id="view-count"></p>
 
-        <!-- Links -->
         <div class="button-stack" role="navigation">
 
           <!-- EVXL -->
@@ -153,6 +187,9 @@
 
         </div>
 
+        <!-- Spotify Random Player -->
+        <div class="spotify-player" id="spotify-player"></div>
+
         <footer>
           Build your own by forking <a href="https://littlelink.io" target="_blank" rel="noopener">LittleLink</a>
         </footer>
@@ -161,6 +198,78 @@
     </div>
 
     <script>
+      // ========== SPOTIFY RANDOM TRACK PLAYER ==========
+      // To add new songs: copy the track ID from the Spotify URL and add it to this array
+      // Example: https://open.spotify.com/track/ABC123 → add 'ABC123' to the list
+      (function() {
+        var tracks = [
+          '3AdXwuFn7j21HNiFMXvZXt', // Caramel - Sleep Token
+          '3Dtk21rEC9HD7DbNcW0eOM', // BLEED4IT - MAKAVELIGODD
+          '0qhVpwKivK3u4OMLb7Z9Ah', // tower of memories - ivri
+          '62t2U6DZM9cb28Mvfx86UX', // I Run - HVN.
+          '1dpB1jrziyaczTQvvz8du1', // WILDFIRE - FUZION
+          '1Ndx4AI3Bco1Ewc84OrOQP',
+          '5eNOzhnusXijoEdh6GQcBY',
+          '1EuTqpNX8vbvrPsTbPRWeD',
+          '2MlTsQWXRQDBME3TYxgfco',
+          '0Fa6aqMrE7jN8OOxFaLjml',
+          '7oEASGVP65ppgRhT0kgQLS',
+          '1YC6e1k4xkOP4Rw4eEYBin',
+          '0XwE208D5TzDLgCJUaYCFv',
+          '3Bb5kPb18ZzJoPuNnXfklX',
+          '5Erox1bpPhEBr2WySBOO8P',
+          '0tnFrxqw6UPLxbO7ao9Bfe',
+          '4h33lJL2YU05kEMaSkao47',
+          '6SJbybzXWrVnBOjbr25Fus',
+          '7oaMP9zqZvvDDGhcoMXbT3',
+          '2mNGL7mZILSqZHxGboJaO9',
+          '5uz5v1hRZLjNGatcPtOWUv',
+          '57Z6TJCTMACXxdrcwZ3Zvf',
+          '030vuSH89rJhY76BmE2Ps6',
+          '66QxkYu2FaOOwXwGozYUQe',
+          '7wEs4bYaStkU6SsLZWaXH0',
+          '47BI5HwOCPp1QdXwLgCETu',
+          '1IWDzlzjmhKZQp3dqXfv6W',
+          '4rCVKG4nTJoN03Ua1H2i9S',
+          '4iSOJg7Ogik0oVuJLaVs2U',
+          '2dh2V6k9qU1FhQ2ZmTIdcg',
+          '3fWibgdtgIie6LKTZ2rUoI',
+          '3XoMtVDuIbmMQ9UKSShXti',
+          '7CSxAriQKhvmM7Bu12fm5e',
+          '4ZXJVpAW39Qc1a0wCDoMx8',
+          '7GDwymep55nRGcr6P7TznN',
+          '3u6uUpi5kvtGqYZjQFgDH8',
+          '1Lgvs8WzpPbT5VuUFIAJwt',
+          '1Chjeu7itQhIgeL1HpVDuN',
+          '4b7vk8SRcYgnxpk0JOIS7r',
+          '3U7mehH6qFWzsDrAljZ7VW',
+          '0M955bMOoilikPXwKLYpoi',
+          '0tdCy39PgWN8LFWu34ORn3',
+          '2LEFdBlzEJQRKTjI47oHSS',
+          '0jSNc289o5pJCShk1HxB5b',
+          '1Cj8ZjtYzTElWSu6v8UB0T',
+          '4RYhSQFFlquCTb8XRMJgFU',
+          '5EpzGCcC2OYB4JqHADdSQy',
+          '0V2PbMM98PAYba0aBVwEO4',
+          '4Y41aKFeMudjfap1h7iqm9',
+          '4PNs4FIa1GfrKQGcb1Y4aG'
+        ];
+
+        var randomTrack = tracks[Math.floor(Math.random() * tracks.length)];
+        var container = document.getElementById('spotify-player');
+        if (container) {
+          var iframe = document.createElement('iframe');
+          iframe.src = 'https://open.spotify.com/embed/track/' + randomTrack + '?utm_source=generator&theme=0';
+          iframe.width = '100%';
+          iframe.height = '80';
+          iframe.frameBorder = '0';
+          iframe.allow = 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture';
+          iframe.loading = 'lazy';
+          iframe.style.borderRadius = '12px';
+          container.appendChild(iframe);
+        }
+      })();
+
       // ========== FLOATING PARTICLES BACKGROUND ==========
       (function() {
         var canvas = document.getElementById('particles-canvas');
@@ -193,7 +302,6 @@
             var p = particles[i];
             p.x += p.dx;
             p.y += p.dy;
-
             if (p.x < 0) p.x = canvas.width;
             if (p.x > canvas.width) p.x = 0;
             if (p.y < 0) p.y = canvas.height;
@@ -205,7 +313,6 @@
             ctx.fill();
           }
 
-          // Draw faint lines between nearby particles
           for (var i = 0; i < particles.length; i++) {
             for (var j = i + 1; j < particles.length; j++) {
               var dx = particles[i].x - particles[j].x;
@@ -233,7 +340,6 @@
         var ctx = canvas.getContext('2d');
         var trail = [];
         var maxTrail = 20;
-        var mouseX = 0, mouseY = 0;
 
         function resize() {
           canvas.width = window.innerWidth;
@@ -243,9 +349,7 @@
         window.addEventListener('resize', resize);
 
         document.addEventListener('mousemove', function(e) {
-          mouseX = e.clientX;
-          mouseY = e.clientY;
-          trail.push({ x: mouseX, y: mouseY, life: 1.0 });
+          trail.push({ x: e.clientX, y: e.clientY, life: 1.0 });
           if (trail.length > maxTrail) trail.shift();
         });
 
@@ -253,32 +357,14 @@
           ctx.strokeStyle = 'rgba(20, 184, 166, ' + alpha + ')';
           ctx.lineWidth = 1.5;
           ctx.lineCap = 'round';
-
           var gap = size * 0.35;
           var len = size;
 
-          // Top
-          ctx.beginPath();
-          ctx.moveTo(x, y - len);
-          ctx.lineTo(x, y - gap);
-          ctx.stroke();
-          // Bottom
-          ctx.beginPath();
-          ctx.moveTo(x, y + gap);
-          ctx.lineTo(x, y + len);
-          ctx.stroke();
-          // Left
-          ctx.beginPath();
-          ctx.moveTo(x - len, y);
-          ctx.lineTo(x - gap, y);
-          ctx.stroke();
-          // Right
-          ctx.beginPath();
-          ctx.moveTo(x + gap, y);
-          ctx.lineTo(x + len, y);
-          ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(x, y - len); ctx.lineTo(x, y - gap); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(x, y + gap); ctx.lineTo(x, y + len); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(x - len, y); ctx.lineTo(x - gap, y); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(x + gap, y); ctx.lineTo(x + len, y); ctx.stroke();
 
-          // Center dot
           ctx.beginPath();
           ctx.arc(x, y, 1.5, 0, Math.PI * 2);
           ctx.fillStyle = 'rgba(20, 184, 166, ' + alpha + ')';
@@ -287,20 +373,12 @@
 
         function drawTrail() {
           ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-          for (var i = 0; i < trail.length; i++) {
-            trail[i].life -= 0.05;
-          }
-
+          for (var i = 0; i < trail.length; i++) trail[i].life -= 0.05;
           trail = trail.filter(function(t) { return t.life > 0; });
-
           for (var i = 0; i < trail.length; i++) {
             var t = trail[i];
-            var alpha = t.life * 0.4;
-            var size = 6 + (1 - t.life) * 4;
-            drawCrosshair(t.x, t.y, size, alpha);
+            drawCrosshair(t.x, t.y, 6 + (1 - t.life) * 4, t.life * 0.4);
           }
-
           requestAnimationFrame(drawTrail);
         }
         drawTrail();
@@ -310,8 +388,6 @@
       (function() {
         var el = document.getElementById('view-count');
         if (!el) return;
-
-        // Simple view counter using CountAPI (free, no signup)
         var key = 'slothon-links-views';
         fetch('https://api.countapi.xyz/hit/bradleywilliamson.github.io/' + key)
           .then(function(r) { return r.json(); })
@@ -320,9 +396,7 @@
               el.textContent = '\uD83D\uDC41 ' + data.value.toLocaleString() + ' views';
             }
           })
-          .catch(function() {
-            // Silently fail - counter just won't show
-          });
+          .catch(function() {});
       })();
     </script>
 
