@@ -124,19 +124,6 @@
         margin-top: 4px !important;
       }
 
-      /* Spotify embed */
-      .spotify-player {
-        width: 100%;
-        max-width: 400px;
-        margin: 16px auto 0;
-        border-radius: 12px;
-        overflow: hidden;
-      }
-
-      .spotify-player iframe {
-        display: block;
-      }
-
       footer {
         margin-top: 12px !important;
       }
@@ -187,9 +174,6 @@
 
         </div>
 
-        <!-- Spotify Random Player -->
-        <div class="spotify-player" id="spotify-player"></div>
-
         <footer>
           Build your own by forking <a href="https://littlelink.io" target="_blank" rel="noopener">LittleLink</a>
         </footer>
@@ -198,78 +182,6 @@
     </div>
 
     <script>
-      // ========== SPOTIFY RANDOM TRACK PLAYER ==========
-      // To add new songs: copy the track ID from the Spotify URL and add it to this array
-      // Example: https://open.spotify.com/track/ABC123 → add 'ABC123' to the list
-      (function() {
-        var tracks = [
-          '3AdXwuFn7j21HNiFMXvZXt', // Caramel - Sleep Token
-          '3Dtk21rEC9HD7DbNcW0eOM', // BLEED4IT - MAKAVELIGODD
-          '0qhVpwKivK3u4OMLb7Z9Ah', // tower of memories - ivri
-          '62t2U6DZM9cb28Mvfx86UX', // I Run - HVN.
-          '1dpB1jrziyaczTQvvz8du1', // WILDFIRE - FUZION
-          '1Ndx4AI3Bco1Ewc84OrOQP',
-          '5eNOzhnusXijoEdh6GQcBY',
-          '1EuTqpNX8vbvrPsTbPRWeD',
-          '2MlTsQWXRQDBME3TYxgfco',
-          '0Fa6aqMrE7jN8OOxFaLjml',
-          '7oEASGVP65ppgRhT0kgQLS',
-          '1YC6e1k4xkOP4Rw4eEYBin',
-          '0XwE208D5TzDLgCJUaYCFv',
-          '3Bb5kPb18ZzJoPuNnXfklX',
-          '5Erox1bpPhEBr2WySBOO8P',
-          '0tnFrxqw6UPLxbO7ao9Bfe',
-          '4h33lJL2YU05kEMaSkao47',
-          '6SJbybzXWrVnBOjbr25Fus',
-          '7oaMP9zqZvvDDGhcoMXbT3',
-          '2mNGL7mZILSqZHxGboJaO9',
-          '5uz5v1hRZLjNGatcPtOWUv',
-          '57Z6TJCTMACXxdrcwZ3Zvf',
-          '030vuSH89rJhY76BmE2Ps6',
-          '66QxkYu2FaOOwXwGozYUQe',
-          '7wEs4bYaStkU6SsLZWaXH0',
-          '47BI5HwOCPp1QdXwLgCETu',
-          '1IWDzlzjmhKZQp3dqXfv6W',
-          '4rCVKG4nTJoN03Ua1H2i9S',
-          '4iSOJg7Ogik0oVuJLaVs2U',
-          '2dh2V6k9qU1FhQ2ZmTIdcg',
-          '3fWibgdtgIie6LKTZ2rUoI',
-          '3XoMtVDuIbmMQ9UKSShXti',
-          '7CSxAriQKhvmM7Bu12fm5e',
-          '4ZXJVpAW39Qc1a0wCDoMx8',
-          '7GDwymep55nRGcr6P7TznN',
-          '3u6uUpi5kvtGqYZjQFgDH8',
-          '1Lgvs8WzpPbT5VuUFIAJwt',
-          '1Chjeu7itQhIgeL1HpVDuN',
-          '4b7vk8SRcYgnxpk0JOIS7r',
-          '3U7mehH6qFWzsDrAljZ7VW',
-          '0M955bMOoilikPXwKLYpoi',
-          '0tdCy39PgWN8LFWu34ORn3',
-          '2LEFdBlzEJQRKTjI47oHSS',
-          '0jSNc289o5pJCShk1HxB5b',
-          '1Cj8ZjtYzTElWSu6v8UB0T',
-          '4RYhSQFFlquCTb8XRMJgFU',
-          '5EpzGCcC2OYB4JqHADdSQy',
-          '0V2PbMM98PAYba0aBVwEO4',
-          '4Y41aKFeMudjfap1h7iqm9',
-          '4PNs4FIa1GfrKQGcb1Y4aG'
-        ];
-
-        var randomTrack = tracks[Math.floor(Math.random() * tracks.length)];
-        var container = document.getElementById('spotify-player');
-        if (container) {
-          var iframe = document.createElement('iframe');
-          iframe.src = 'https://open.spotify.com/embed/track/' + randomTrack + '?utm_source=generator&theme=0';
-          iframe.width = '100%';
-          iframe.height = '80';
-          iframe.frameBorder = '0';
-          iframe.allow = 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture';
-          iframe.loading = 'lazy';
-          iframe.style.borderRadius = '12px';
-          container.appendChild(iframe);
-        }
-      })();
-
       // ========== FLOATING PARTICLES BACKGROUND ==========
       (function() {
         var canvas = document.getElementById('particles-canvas');
